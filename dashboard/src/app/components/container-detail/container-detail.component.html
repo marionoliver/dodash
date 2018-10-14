@@ -1,0 +1,145 @@
+<div class="container">
+  <div class="row ml-2 mb-2">
+    <button type="button" class="btn btn-info col-3" routerLink="/containers"><span class="fa fa-caret-square-left"></span>
+      Return to containers list</button>
+    <h2 class="col-7" style="text-align: right;">{{container.Name}}</h2>
+  </div>
+  <div class="row">
+    <section class="card col-lg-5 offset-lg-3 ml-2 mb-2">
+      <div class="card-header">
+        ID
+      </div>
+      <div class="card-block wordwrap">
+        {{container.Id}}
+      </div>
+    </section>
+    <section class="card col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        Image ID
+      </div>
+      <div class="card-block wordwrap">
+        {{container.Image}}
+      </div>
+    </section>
+    <section class="card col-lg-5 offset-lg-3 ml-2 mb-2">
+      <div class="card-header">
+        Created at
+      </div>
+      <div class="card-block wordwrap">
+        {{container.Created}}
+      </div>
+    </section>
+    <section class="card col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        State
+      </div>
+      <div class="card-block wordwrap">
+        {{container.State.Status}}
+        Started At : {{container.State.StartedAt}}
+      </div>
+    </section>
+    <section class="card col-lg-5 offset-lg-3 ml-2 mb-2">
+      <div class="card-header">
+        Ports
+      </div>
+      <div class="card-block wordwrap">
+        {{containerPort}}:{{hostPort}}
+      </div>
+    </section>
+    <section class="card  col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        Binds
+      </div>
+      <div class="card-block" *ngIf="container.HostConfig.Binds.length > 0">
+        <div class="row">
+          <div *ngFor="let bind of container.HostConfig.Binds" class="col-12 wordwrap">
+            {{bind}}
+          </div>
+        </div>
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.HostConfig.Binds.length == 0">
+        No bind specified
+      </div>
+    </section>
+    <section class="card col-lg-5 offset-lg-1 ml-2 mb-2 ">
+      <div class="card-header">
+        Environment variables
+      </div>
+      <div class="card-block" *ngIf="container.Config.Env.length > 0">
+        <div class="row">
+          <div *ngFor="let env of container.Config.Env" class="col-12 wordwrap">
+            {{env}}
+          </div>
+        </div>
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.Config.Env.length == 0">
+        No environment variable specified
+      </div>
+    </section>
+    <section class="card col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        Commands
+      </div>
+      <div class="card-block" *ngIf="container.Config.Cmd.length > 0">
+        <div class="row">
+          <div *ngFor="let cmd of container.Config.Cmd" class="wordwrap col-12">
+            {{cmd}}
+          </div>
+        </div>
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.Config.Cmd.length == 0">
+        No command specified
+      </div>
+    </section>
+    <section class="card col-lg-5 offset-lg-3 ml-2 mb-2">
+      <div class="card-header">
+        Nano Cpu
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.HostConfig.NanoCpus != 0">
+        {{container.HostConfig.NanoCpus}}
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.HostConfig.NanoCpus == 0">
+        No cpu specified
+      </div>
+    </section>
+    <section class="card col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        Memory
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.HostConfig.Memory != 0">
+        {{container.HostConfig.Memory}}
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.HostConfig.Memory == 0">
+        No memory specified
+      </div>
+    </section>
+    <section class="card col-lg-5 offset-lg-3 ml-2 mb-2">
+      <div class="card-header">
+        Mount
+      </div>
+      <div class="card-block" *ngIf="container.Mounts.length > 0">
+        <div class="row">
+          <div *ngFor="let mount of container.Mounts" class="col-12 wordwrap">
+            Type : {{mount.Type}}<br />
+            Source : {{mount.Source}}<br />
+            Destination : {{mount.Destination}}
+          </div>
+        </div>
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.Mounts.length == 0">
+        No mount specified
+      </div>
+    </section>
+    <section class="card col-lg-5 ml-2 mb-2">
+      <div class="card-header">
+        Platform
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.Platform.length > 0">
+        {{container.Platform}}
+      </div>
+      <div class="card-block wordwrap" *ngIf="container.Platform.length == 0">
+        No platform specified
+      </div>
+    </section>
+  </div>
+</div>

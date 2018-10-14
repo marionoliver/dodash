@@ -1,0 +1,16 @@
+.section {
+    position: relative;
+    height: 75vh;
+    max-height: 500px;
+    background-color: #fff;
+    margin-bottom: 2rem;
+    border: #DCDBD7 1px solid;
+    border-radius: 10px;     
+
+    .section .caption {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+    }
+}

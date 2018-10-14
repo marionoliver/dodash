@@ -1,0 +1,22 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    build: dashboard # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200" # specify port forewarding
+    volumes:
+      # Just specify a path and let the Engine create a volume
+      - //var/run/docker.sock:/var/run/docker.sock
+
+  express: #name of the second service
+    build: docker-server # specify the directory of the Dockerfile
+    ports:
+      - "3000:3000" #specify ports forewarding
+    privileged: true
+    volumes:
+      # Just specify a path and let the Engine create a volume
+      - //var/run/docker.sock:/var/run/docker.sock
+
+  

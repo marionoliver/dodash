@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="row ml-2 mb-2 ">
+    <button type="button" class="btn btn-info col-3" routerLink="/containers"><span class="fa fa-caret-square-left"></span>
+      Return to containers list</button>
+    <h2 class="col-9" style="text-align: right;">Create container</h2>
+  </div>
+  <form class="form" (ngSubmit)="addContainer()" #containerForm="ngForm">
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="text" class="form-control" id="image" name="image" #image="ngModel" required [(ngModel)]="container.Image">
+    </div>
+    <div class="form-group">
+      <label for="nom">Name
+        <small>(optional)</small></label>
+      <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="container.Nom">
+    </div>
+    <section class="form-group card">
+      <div class="card-header">
+        Limitations
+        <small>(optional)</small>
+      </div>
+      <div class="card-block">
+        <div class="form-group row">
+          <div class="col-lg-6 col-md-12">
+            <input type="number" class="form-control" id="ram" name="ram" min="4" [(ngModel)]="container.Ram"
+              placeholder="RAM limit">
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <input type="number" class="form-control" id="cpu" name="cpu" [(ngModel)]="container.Cpu" placeholder="CPU limit">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="form-group card">
+      <div class="card-header">
+        Shared volume
+        <small>(optional)</small>
+      </div>
+      <div class="card-block">
+        <div class="form-group row">
+          <div class="col-lg-6 col-md-12">
+            <input type="text" class="form-control" id="cheminHost" name="cheminHost" [(ngModel)]="container.CheminHost"
+              placeholder="Host path">
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <input type="text" class="form-control" id="cheminGuest" name="cheminGuest" [(ngModel)]="container.CheminGuest"
+              placeholder="Container path">
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="form-group card">
+      <div class="card-header">
+        Port binding
+        <small>(optional)</small>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <input type="number" class="form-control" id="portHost" name="portHost" [(ngModel)]="container.PortHost"
+              placeholder="Container port">
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <input type="number" class="form-control" id="portGuest" name="portGuest" [(ngModel)]="container.PortGuest"
+              placeholder="Host port">
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section class="form-group card">
+      <div class="card-header">
+        Environment variables
+        <small>(optional)</small>
+      </div>
+      <div class="card-block">
+        <form (ngSubmit)="addVariable()" #variableForm="ngForm">
+          <div class="form form-group row">
+            <div class="col-lg-6 col-md-12">
+              <input type="text" class="form-control" id="nomvariable" name="nomvariable" required [(ngModel)]="variableEnv.NomVariable"
+                placeholder="Environment variable name" required>
+            </div>
+            <div class="col-lg-6 col-md-12">
+              <input type="text" class="form-control" id="valeurvariable" name="valeurvariable" required [(ngModel)]="variableEnv.Valeur"
+                placeholder="Environment variable value" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="variableForm.form.invalid">Add the environment
+            variable</button>
+        </form>
+        <br />
+        <table *ngIf="container.VariablesEnv.length > 0" class="table table-striped table-inverse">
+          <thead>
+            <th>Environment variables</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let env of container.VariablesEnv">
+              <td>{{env?.NomVariable}} = {{env?.Valeur}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <br />
+    <div class="text-center">
+      <button type="sumbit" [disabled]="containerForm.form.invalid" class="btn btn-lg btn-success">Create the container</button>
+    </div>
+
+  </form>
+</div>

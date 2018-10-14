@@ -1,0 +1,19 @@
+<div class="container">
+  <h3>Images</h3>
+  <table class="table table-striped custab">
+    <thead class="thead-inverse">
+      <tr>
+        <th>RepoTags</th>
+        <th>Id</th>
+        <th>Created</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let image of images">
+      <td>{{image.RepoTags}}</td>
+      <td>{{image.Id}}</td>
+      <td>{{image.Created}}</td>
+      <td>{{image.Size}}</td>
+    </tr>
+  </table>
+</div>

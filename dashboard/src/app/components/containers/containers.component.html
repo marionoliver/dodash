@@ -1,0 +1,85 @@
+<div class="container">
+  <h3>Containers</h3>
+  <table class="table table-striped custab">
+    <thead class="thead-inverse">
+      <a routerLink="/container/create" class="btn btn-primary btn-xs pull-right"><b>+</b> Create container</a>
+      <tr>
+        <th>Image</th>
+        <th>Status</th>
+        <th>Ports</th>
+        <th>Name</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let container of containers">
+      <td>{{container?.Image}}</td>
+      <td>{{container?.Status}}</td>
+      <td>{{container?.Ports[0]?.PublicPort}}:{{container?.Ports[0]?.PrivatePort}}/{{container?.Ports[0]?.Type}}</td>
+      <td>{{container?.Names[0]}}</td>
+      <td class="text-center">
+        <div class="row" *ngIf="container.Status.substr(0,2)==='Up'">
+          <button class='btn btn-success btn-xs col-xl-3 offset-xl-1 col-lg-10 offset-lg-1 text-center' (click)="containerDetail(container)"
+            placement="top" ngbTooltip="Get details">
+            <span class="fa fa-eye"></span>
+          </button>
+          <button class="btn btn-warning btn-xs col-xl-3 offset-xl-1 col-lg-10 offset-lg-1 text-center" (click)="containerLogs(container)"
+            placement="top" ngbTooltip="Get logs">
+            <span class="fa fa-book"></span>
+          </button>
+          <button [disabled]="container.Image=='dashboarddocker_angular' || container.Image=='dashboarddocker_express'" class="btn btn-danger btn-xs col-xl-3 offset-xl-1 col-lg-10 offset-lg-1 text-center" data-toggle="modal"
+            data-target="#stopModal" placement="top" ngbTooltip="Stop">
+            <span class="fa fa-stop-circle"></span>
+          </button>
+        </div>
+        <button data-toggle="modal"
+        data-target="#removeModal" class="btn btn-danger btn-xs col-12 text-center" *ngIf="container.Status.substr(0,2)!=='Up'"
+          placement="top" ngbTooltip="Remove">
+          <span class="fa fa-trash"></span>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="stopModal" tabindex="-1" role="dialog" aria-labelledby="StopContainer" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="StopContainer">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                You really want to stop this container ?!!
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-success" (click)="stop(container.Id)" data-dismiss="modal">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="RemoveContainer" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="RemoveContainer">Confirmation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  You really want to kill this container ?!! <br/>
+                  <small>(you will be a murder... be careful, I see you...)</small>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                  <button type="button" class="btn btn-success" (click)="remove(container.Id)" data-dismiss="modal">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </td>
+    </tr>
+  </table>
+</div>
