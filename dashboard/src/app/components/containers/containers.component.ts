@@ -28,7 +28,7 @@ export class ContainersComponent implements OnInit {
     this.containerService.getAllContainers().pipe(
       map(
         (containers: Container[]) => containers.filter(
-          (container: Container) => ((container.Image != 'dashboarddocker_angular') && (container.Image != 'dashboarddocker_express'))
+          (container: Container) => ((container.Image != 'dodash_angular') && (container.Image != 'dodash_express'))
         )
       )
     ).subscribe(containers => this.containers = containers, () => {}, () => {
